@@ -1,11 +1,19 @@
 const { buildSchema } = require('graphql');
 
-module.exports.schema = buildSchema(`
+export const schema = buildSchema(`
   input UserInput {
     name: String!
     age: Int!
   }
   
+  type AccessToken {
+    access_token: String
+  }
+
+  type Artists {
+    artists: [String]
+  }
+
   type User {
     id: ID!
     name: String!
@@ -19,6 +27,8 @@ module.exports.schema = buildSchema(`
   }
 
   type Query {
+    authenticate(code: String): AccessToken
+    getArtists(term: String): Artists
     getUsers: [User]!
     getUser(id: ID): User
   }
